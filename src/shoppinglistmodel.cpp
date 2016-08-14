@@ -253,6 +253,12 @@ void ShoppingListModel::removeSelectedItems()
                           tr("Keine Produkte ausgewählt!"));
     }
 }
+void ShoppingListModel::removeAllItems()
+{
+    emit beginResetModel();
+    m_shoppingList.clear();
+    emit endResetModel();
+}
 
 QHash<int, QByteArray> ShoppingListModel::roleNames() const
 {

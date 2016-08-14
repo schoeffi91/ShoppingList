@@ -28,6 +28,8 @@ public:
 
     Q_INVOKABLE void removeSelectedItems();
 
+    Q_INVOKABLE void removeAllItems();
+
     QHash<int, QByteArray> roleNames() const override final;
 
     enum MyRoles

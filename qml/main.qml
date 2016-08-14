@@ -112,9 +112,8 @@ Rectangle {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         text: qsTr("Löschen");
-                        onClicked: {
-                            lv.model.removeSelectedItems();
-                        }
+                        onClicked: lv.model.removeSelectedItems();
+
                     }
 
                     MyButton {
@@ -128,6 +127,7 @@ Rectangle {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         text: qsTr("Neue Einkaufsliste");
+                        onClicked: lv.model.removeAllItems();
                     }
                 }
             }
