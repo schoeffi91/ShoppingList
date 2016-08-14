@@ -55,6 +55,27 @@ Rectangle {
                         }
                     }
                 }
+
+                Connections {
+                    target: lv.model
+                    onErrorHappend: {
+                        messageDialog.text = message;
+                        messageDialog.title = title
+                        messageDialog.icon = StandardIcon.Critical;
+                        messageDialog.visible = true;
+                    }
+                    onInfoHappend: {
+                        messageDialog.text = message;
+                        messageDialog.title = title
+                        messageDialog.icon = StandardIcon.Information;
+                        messageDialog.visible = true;
+                    }
+                }
+
+                MessageDialog {
+                    id: messageDialog
+                    Component.onCompleted: visible = false
+                }
              }
 
             Item {

@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include <QHash>
+#include <QSqlDatabase>
 
 class ShoppingListModel: public QAbstractListModel
 {
@@ -17,7 +18,15 @@ public:
 
     Q_INVOKABLE virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override final;
 
+    Q_INVOKABLE void openFromDevice();
+
+    Q_INVOKABLE void saveToDevice();
+
+    Q_INVOKABLE void insertArticle(const QString &article, const QString &info, qint64 count);
+
     Qt::ItemFlags flags(const QModelIndex &index) const override final;
+
+    Q_INVOKABLE void removeSelectedItems();
 
     QHash<int, QByteArray> roleNames() const override final;
 
@@ -26,8 +35,13 @@ public:
         IdRole = Qt::UserRole + 1,
         ArticleRole,
         InfoTextRole,
-        BoughtRole
+        BoughtRole,
+        SelectedRole
     };
+
+signals:
+    void errorHappend(const QString &title, const QString &message);
+    void infoHappend(const QString &title, const QString &message);
 
 private:
     struct ShoppingItem
@@ -36,9 +50,13 @@ private:
         bool bought = false;
         QString info;
         QString article;
+        qint64 count = 0;
+        bool selected = false;
     };
 
     QList<ShoppingItem> m_shoppingList;
+
+    QSqlDatabase m_db;
 };
 
 #endif // SHOPPINGLISTMODEL_H
