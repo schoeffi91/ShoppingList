@@ -101,6 +101,10 @@ Rectangle {
                         text: qsTr("Hinzufügen");
                         onClicked: {
                             newArticleDialog.visible = true;
+
+                            article.text = "";
+                            count.text = "";
+                            infos.text = "";
                         }
                     }
 
