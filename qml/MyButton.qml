@@ -3,13 +3,14 @@ import QtQuick 2.0
 Rectangle {
     id: myButtonRect
 
-    color: "white"
+    color: enabled ? "white" : "grey"
 
     property alias text: myText.text
 
     signal clicked
 
     scale: myMouseArea.pressed ? 0.9 : 1
+    implicitHeight:  myText.implicitHeight
 
     Text {
         id: myText
