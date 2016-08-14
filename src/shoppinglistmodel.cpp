@@ -172,6 +172,17 @@ void ShoppingListModel::saveToDevice()
             return;
         }
 
+        //clear current table
+        QSqlQuery deleteQuery(m_db);
+        if(!deleteQuery.exec("DELETE FROM ShoppingArticles;"))
+        {
+            emit errorHappend(tr("Datenbankfehler"),
+                              tr("Fehler beim Löschen der Datenbank! %1")
+                              .arg(deleteQuery.lastError().text()));
+            m_db.close();
+            return;
+        }
+
         for(const ShoppingItem &item: m_shoppingList)
         {
             QSqlQuery query(m_db);
