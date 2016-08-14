@@ -74,7 +74,6 @@ bool ShoppingListModel::setData(const QModelIndex &index, const QVariant &value,
         emit dataChanged(index, index, {MyRoles::InfoTextRole});
         return true;
     case MyRoles::SelectedRole:
-        qDebug() << "Set Selected" << value.toBool();
         item.selected = value.toBool();
         emit dataChanged(index, index, {MyRoles::SelectedRole});
         return true;
