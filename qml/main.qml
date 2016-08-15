@@ -3,6 +3,8 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.2
 
+import "qrc:/"
+
 Rectangle {
     id: rootRect
     visible:true
@@ -99,6 +101,7 @@ Rectangle {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
                         text: qsTr("Hinzufügen");
+                        imageSource: "qrc:/addItem.png"
                         onClicked: {
                             newArticleDialog.visible = true;
 
