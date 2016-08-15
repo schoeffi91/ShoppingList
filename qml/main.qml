@@ -27,25 +27,24 @@ Rectangle {
                 clip: true
                 spacing: 10
                 currentIndex: -1
-                delegate: Item {
+                delegate: Rectangle {
                     id: rootArticleItem
                     property bool detailedView: false
                     width: rootRect.width
                     height: layout.implicitHeight
+                    color: model.selected ? "lightblue" : "white"
+                    opacity: model.bought ? 0.5 : 1
+                    border.color: "black"
+                    border.width: model.selected ? 2 : 0
 
                     ColumnLayout {
                         id: layout
                         width: parent.width
                         spacing: 0
 
-                        Rectangle {
+                        Item {
                             Layout.preferredHeight: myText.implicitHeight + 10
                             Layout.fillWidth: true
-                            color: model.selected ? "lightblue" : "white"
-                            opacity: model.bought ? 0.5 : 1
-                            border.color: "black"
-                            border.width: model.selected ? 2 : 0
-
                             Text {
                                 id: myText
                                 text: model.article
@@ -61,29 +60,12 @@ Rectangle {
                                 anchors.centerIn: parent
                                 visible: model.bought
                             }
-
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    detailedView = !detailedView;
-                                }
-
-                                onDoubleClicked: {
-                                    model.bought = !model.bought;
-                                }
-
-                                onPressAndHold: {
-                                    model.selected = !model.selected
-                                }
-                            }
                         }
 
-                        Rectangle {
+                        Item {
                             Layout.preferredHeight: infoText.implicitHeight + 10
                             Layout.fillWidth: true
                             visible: rootArticleItem.detailedView
-                            color:"white"
-                            opacity: 0.8
                             Text {
                                 id: infoText
                                 anchors.fill: parent
@@ -92,6 +74,21 @@ Rectangle {
                                 text: model.infotext
                                 wrapMode: Text.Wrap
                             }
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            detailedView = !detailedView;
+                        }
+
+                        onDoubleClicked: {
+                            model.bought = !model.bought;
+                        }
+
+                        onPressAndHold: {
+                            model.selected = !model.selected
                         }
                     }
                 }
