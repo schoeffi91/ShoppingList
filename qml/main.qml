@@ -223,9 +223,11 @@ Rectangle {
                 MyButton {
                     text: "Hinzufügen"
                     Layout.fillWidth: true
-                    Layout.preferredHeight: implicitHeight
+                    Layout.fillHeight: true
+                    Layout.maximumHeight: 40
                     Layout.columnSpan: newArticleDialog.width > 800 ? 2 : 1
                     color: "white"
+                    imageSource: "qrc:/addItem.png"
                     onClicked: {
                         lv.model.insertArticle(article.text,
                                                infos.text,
