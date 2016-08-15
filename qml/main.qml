@@ -17,6 +17,7 @@ Rectangle {
 
         ColumnLayout {
             anchors.fill: parent
+            anchors.margins: 10
 
             ListView {
                 id: lv
@@ -24,44 +25,72 @@ Rectangle {
                 Layout.fillWidth: true
                 model: ShoppingModel
                 clip: true
+                spacing: 10
                 currentIndex: -1
                 delegate: Item {
-                    property bool elapsed: false
+                    id: rootArticleItem
+                    property bool detailedView: false
                     width: rootRect.width
-                    height: 50
+                    height: layout.implicitHeight
 
-                    Rectangle {
-                        anchors.fill: parent
-                        anchors.margins: 10
-                        color: model.selected ? "lightblue" : "white"
-                        opacity: model.bought ? 0.5 : 1
-                        border.color: "black"
-                        border.width: model.selected ? 2 : 0
+                    ColumnLayout {
+                        id: layout
+                        width: parent.width
+                        spacing: 0
 
-                        Text {
-                            id: myText
-                            text: model.article
-                            anchors.fill: parent
-                            anchors.margins: 10
-                            verticalAlignment: Text.AlignVCenter
+                        Rectangle {
+                            Layout.preferredHeight: myText.implicitHeight + 10
+                            Layout.fillWidth: true
+                            color: model.selected ? "lightblue" : "white"
+                            opacity: model.bought ? 0.5 : 1
+                            border.color: "black"
+                            border.width: model.selected ? 2 : 0
+
+                            Text {
+                                id: myText
+                                text: model.article
+                                anchors.fill: parent
+                                anchors.margins: 10
+                                verticalAlignment: Text.AlignVCenter
+                            }
+
+                            Rectangle {
+                                width: parent.width - 10
+                                height: 1
+                                color: myText.color
+                                anchors.centerIn: parent
+                                visible: model.bought
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    detailedView = !detailedView;
+                                }
+
+                                onDoubleClicked: {
+                                    model.bought = !model.bought;
+                                }
+
+                                onPressAndHold: {
+                                    model.selected = !model.selected
+                                }
+                            }
                         }
 
                         Rectangle {
-                            width: parent.width - 10
-                            height: 1
-                            color: myText.color
-                            anchors.centerIn: parent
-                            visible: model.bought
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                model.bought = !model.bought;
-                            }
-
-                            onPressAndHold: {
-                                model.selected = !model.selected
+                            Layout.preferredHeight: infoText.implicitHeight + 10
+                            Layout.fillWidth: true
+                            visible: rootArticleItem.detailedView
+                            color:"white"
+                            opacity: 0.8
+                            Text {
+                                id: infoText
+                                anchors.fill: parent
+                                anchors.margins: 10
+                                verticalAlignment: Text.AlignVCenter
+                                text: model.infotext
+                                wrapMode: Text.Wrap
                             }
                         }
                     }
