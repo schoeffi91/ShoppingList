@@ -108,6 +108,7 @@ Rectangle {
                             article.text = "";
                             count.text = "";
                             infos.text = "";
+                            article.focus = true
                         }
                     }
 
@@ -168,6 +169,10 @@ Rectangle {
                         id: article
                         anchors.fill: parent
                         anchors.margins: 5
+                        Keys.onReturnPressed: {
+                            article.focus = false
+                            count.focus = true;
+                        }
                     }
                 }
 
@@ -188,6 +193,10 @@ Rectangle {
                         anchors.fill: parent
                         anchors.margins: 5
                         validator: DoubleValidator { }
+                        Keys.onReturnPressed: {
+                            count.focus = false
+                            infos.focus = true;
+                        }
                     }
                 }
 
