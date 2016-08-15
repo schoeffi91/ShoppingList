@@ -193,6 +193,7 @@ Rectangle {
                         anchors.fill: parent
                         anchors.margins: 5
                         validator: DoubleValidator { }
+                        inputMethodHints: Qt.ImhDigitsOnly
                         Keys.onReturnPressed: {
                             count.focus = false
                             infos.focus = true;
