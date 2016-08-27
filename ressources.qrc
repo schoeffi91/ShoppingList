@@ -3,5 +3,6 @@
         <file>qml/main.qml</file>
         <file>qml/MyButton.qml</file>
         <file alias="addItem.png">icons/drawable-xhdpi/ic_add_shopping_cart_black_24dp.png</file>
+        <file alias="deleteItem.png">icons/drawable-xhdpi/delete.png</file>
     </qresource>
 </RCC>

@@ -11,6 +11,8 @@ Rectangle {
 
     signal clicked
 
+    radius: 5
+
     scale: myMouseArea.pressed ? 0.9 : 1
     implicitHeight:  myText.implicitHeight
 

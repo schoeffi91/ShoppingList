@@ -13,7 +13,7 @@ Rectangle {
 
     Rectangle {
         anchors.fill: parent
-        color: "lightgrey"
+        color: "#A2CD5A"
 
         ColumnLayout {
             anchors.fill: parent
@@ -153,6 +153,7 @@ Rectangle {
                         Layout.fillWidth: true
                         text: qsTr("Löschen");
                         onClicked: lv.model.removeSelectedItems();
+                        imageSource: "qrc:/deleteItem.png"
 
                     }
 
