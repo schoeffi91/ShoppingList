@@ -53,6 +53,16 @@ Rectangle {
                                 verticalAlignment: Text.AlignVCenter
                             }
 
+                            Text {
+                                text: model.count
+                                anchors.right: parent.right
+                                anchors.rightMargin: 30
+                                anchors.top: parent.top
+                                anchors.bottom: parent.bottom
+                                verticalAlignment: Text.AlignVCenter
+                                anchors.leftMargin: 10
+                            }
+
                             Rectangle {
                                 width: parent.width - 10
                                 height: 1

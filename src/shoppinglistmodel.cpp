@@ -22,7 +22,7 @@ QVariant ShoppingListModel::data(const QModelIndex &index, int role) const
 {
     if(index.row() >= m_shoppingList.count() ||
             role < MyRoles::IdRole ||
-            role > MyRoles::SelectedRole)
+            role > MyRoles::CountRole)
     {
         return QVariant();
     }
@@ -41,6 +41,8 @@ QVariant ShoppingListModel::data(const QModelIndex &index, int role) const
         return item.info;
     case MyRoles::SelectedRole:
         return item.selected;
+    case MyRoles::CountRole:
+        return item.count;
     }
 
     return QVariant();
@@ -52,7 +54,8 @@ bool ShoppingListModel::setData(const QModelIndex &index, const QVariant &value,
             (role != MyRoles::BoughtRole &&
              role != MyRoles::ArticleRole &&
              role != MyRoles::InfoTextRole &&
-             role != MyRoles::SelectedRole))
+             role != MyRoles::SelectedRole &&
+             role != MyRoles::CountRole))
     {
         return false;
     }
@@ -76,6 +79,10 @@ bool ShoppingListModel::setData(const QModelIndex &index, const QVariant &value,
     case MyRoles::SelectedRole:
         item.selected = value.toBool();
         emit dataChanged(index, index, {MyRoles::SelectedRole});
+        return true;
+    case MyRoles::CountRole:
+        item.count = value.toInt();
+        emit dataChanged(index, index, {MyRoles::CountRole});
         return true;
     }
 
@@ -279,5 +286,6 @@ QHash<int, QByteArray> ShoppingListModel::roleNames() const
     roles[MyRoles::BoughtRole] = "bought";
     roles[MyRoles::InfoTextRole] = "infotext";
     roles[MyRoles::SelectedRole] = "selected";
+    roles[MyRoles::CountRole] = "count";
     return roles;
 }

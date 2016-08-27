@@ -38,7 +38,8 @@ public:
         ArticleRole,
         InfoTextRole,
         BoughtRole,
-        SelectedRole
+        SelectedRole,
+        CountRole
     };
 
 signals:
