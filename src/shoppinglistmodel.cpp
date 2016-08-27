@@ -278,6 +278,27 @@ void ShoppingListModel::removeAllItems()
     emit endResetModel();
 }
 
+QString ShoppingListModel::getArticleString() const
+{
+    QString s;
+
+    s.append(tr("Eine Einkaufsliste wurde versendet:\r\n\r\n"));
+
+    for(const ShoppingItem &item : m_shoppingList)
+    {
+        s.append("---------------------------------------------\r\n");
+        s.append(tr("Artikel: %1\r\n").arg(item.article));
+        s.append(tr("Zusatzinfos: %1\r\n").arg(item.info));
+        s.append(tr("Anzahl: %1\r\n").arg(item.count));
+    }
+
+    s.append("---------------------------------------------\r\n");
+    s.append(tr("\r\n*** Das ist eine automatisch generierte Email. "
+                "Bitte anworten Sie darauf nicht. ***"));
+
+    return s;
+}
+
 QHash<int, QByteArray> ShoppingListModel::roleNames() const
 {
     QHash<int, QByteArray> roles;

@@ -167,8 +167,138 @@ Rectangle {
                     MyButton {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        text: qsTr("Neue Einkaufsliste");
+                        text: qsTr("Neue Liste");
                         onClicked: lv.model.removeAllItems();
+                    }
+
+                    MyButton {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        text: qsTr("Senden");
+                        onClicked: SmtpClient.sendMail(
+                                       qsTr("Neue Einkaufsliste =)"),
+                                       lv.model.getArticleString());
+                        onPressAndHold: emailLoginDialog.visible = true
+                    }
+                }
+            }
+        }
+    }
+
+    Connections {
+        target: SmtpClient
+        onLoginRequired: emailLoginDialog.visible = true;
+    }
+
+    Dialog {
+        id: emailLoginDialog
+        visible: false
+        title: qsTr("Bitte geben Sie Ihre Login Daten ein:")
+        contentItem: Rectangle {
+            color: "lightgrey"
+
+            implicitHeight: rootRect.height * 0.5
+            implicitWidth: rootRect.width * 0.5
+
+            GridLayout {
+                anchors.fill: parent
+                anchors.margins: 10
+                columns: newArticleDialog.width > 400 ? 2 : 1
+
+                Text {
+                    text: qsTr("Benutzername:")
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: implicitHeight
+                }
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: article.implicitHeight * 2
+                    color: "white"
+                    border.color: "black"
+                    border.width: 1
+                    TextInput {
+                        id: user
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        Keys.onReturnPressed: {
+                            article.focus = false
+                            count.focus = true;
+                        }
+                    }
+                }
+
+                Text {
+                    text: qsTr("Passwort:")
+                    Layout.preferredHeight: implicitHeight
+                    Layout.fillWidth: true
+                }
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: count.implicitHeight * 2
+                    color: "white"
+                    border.color: "black"
+                    border.width: 1
+                    TextInput {
+                        id: password
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        echoMode: TextInput.Password
+                        Keys.onReturnPressed: {
+                            count.focus = false
+                            infos.focus = true;
+                        }
+                    }
+                }
+
+                Text {
+                    text: qsTr("Server:")
+                    Layout.preferredHeight: implicitHeight
+                    Layout.fillWidth: true
+                }
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: infos.implicitHeight * 2
+                    color: "white"
+                    border.color: "black"
+                    border.width: 1
+                    TextInput {
+                        id: server
+                        anchors.fill: parent
+                        anchors.margins: 5
+                    }
+                }
+                Text {
+                    text: qsTr("Ziel Emailaddresse:")
+                    Layout.preferredHeight: implicitHeight
+                    Layout.fillWidth: true
+                }
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: infos.implicitHeight * 2
+                    color: "white"
+                    border.color: "black"
+                    border.width: 1
+                    TextInput {
+                        id: destination
+                        anchors.fill: parent
+                        anchors.margins: 5
+                    }
+                }
+
+                MyButton {
+                    text: "Speichern"
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.maximumHeight: 40
+                    Layout.columnSpan: newArticleDialog.width > 800 ? 2 : 1
+                    color: "white"
+                    onClicked: {
+                        SmtpClient.saveLogin(user.text, password.text, server.text, destination.text);
+                        emailLoginDialog.visible = false
                     }
                 }
             }

@@ -3,7 +3,8 @@ QT += qml quick sql
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    src/shoppinglistmodel.cpp
+    src/shoppinglistmodel.cpp \
+    src/smtpclient.cpp
 
 RESOURCES += ressources.qrc
 
@@ -23,6 +24,7 @@ DISTFILES += \
     android/gradlew.bat
 
 HEADERS += \
-    src/shoppinglistmodel.h
+    src/shoppinglistmodel.h \
+    src/smtpclient.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

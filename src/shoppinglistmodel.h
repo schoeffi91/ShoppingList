@@ -30,6 +30,8 @@ public:
 
     Q_INVOKABLE void removeAllItems();
 
+    Q_INVOKABLE QString getArticleString() const;
+
     QHash<int, QByteArray> roleNames() const override final;
 
     enum MyRoles

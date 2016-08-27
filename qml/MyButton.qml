@@ -10,6 +10,7 @@ Rectangle {
     property alias imageSource: myImage.source
 
     signal clicked
+    signal pressAndHold
 
     radius: 5
 
@@ -38,5 +39,6 @@ Rectangle {
         id: myMouseArea
         anchors.fill: parent
         onClicked: myButtonRect.clicked()
+        onPressAndHold: myButtonRect.pressAndHold();
     }
 }
